@@ -10,13 +10,13 @@ body{
     margin: 0rem;
     padding: 0rem;
     box-sizing: border-box;
+    /* position: relative; */
 }
 
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
 }
 
 .bg-img{
@@ -77,20 +77,23 @@ body{
     margin: 0rem 0.5rem;
 }
 
-.todo input{
+.todo > input{
     color: white;
-    height: 100%;
-    width: 95%;
+    height: 80%;
+    width: 90%;
     background-color: hsl(235, 24%, 19%);
-    border: none;
 }
 
-.add-todo input:focus{
-    border: none;
+ul{
+    list-style-type: square;
 }
 
 .attribution{
-    font-size: 11px;
+    /* position: absolute;
+    bottom: 2rem;
+    left: 40%; */
+    margin-bottom: auto;
+    font-size: 16px;
     text-align: center;
 }
 
