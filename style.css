@@ -121,6 +121,11 @@ ul{
     cursor: pointer;
 }
 
+.completed{
+    color: hsl(237, 14%, 26%);
+    text-decoration: line-through;
+}
+
 .attribution{
     position: absolute;
     bottom: 2rem;
