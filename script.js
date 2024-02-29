@@ -1,5 +1,5 @@
 const newTodo = document.querySelector('.add-todo');
-const todos = document.querySelector('.todo-list');
+const todoList = document.querySelector('.todo-boxes');
 const itemInput = document.getElementById('create-todo');
 const optionsBar = document.querySelector('.options');
 const allbtn = document.querySelector('.allbtn');
@@ -25,13 +25,12 @@ function addTodoDOM(item){
     const text = document.createTextNode(item);
     const circle = document.createElement('div');
     circle.classList.add('check-circle');
-    const icon = createIcon('fa-thin fa-circle-xmark');
-    console.log(icon);
+    const icon = createIcon("fa-solid fa-x");
 
     newLi.appendChild(circle);
     newLi.appendChild(text);
     newLi.appendChild(icon);
-    todos.appendChild(newLi);
+    document.querySelector('.todo-boxes').appendChild(newLi);
 
     itemInput.value='';
 }
@@ -75,7 +74,7 @@ function addTodoStorage(e){
     }
 }
 
-function checkUI(){
+function checkUI(e){
 
     const todos = getItemsFromStorage();
     if(todos.length === 0){
@@ -95,38 +94,49 @@ function checkUI(){
 
         optionsBar.style.display='flex';
     }
+
+    // To change the color of the buttons
+    // if(e.target.classList.contains("all")){
+        
+    //     const btn=e.target;
+    //     if(btn.style.color === 'white')
+    //         btn.style.color='hsl(235, 67%, 50%)';
+    //     else
+    //         btn.style.color='white';
+    // }
 }
 
-function showCompleted(e){
+// Function to edit on click
+function onClickTodo(e){
 
-    // console.log(e.target);  // class activebtn
-    const btn=e.target;
-    if(btn.style.color === 'white')
-        btn.style.color='hsl(235, 67%, 50%)';
-    else
-        btn.style.color='white';
-
-    showCompletedTodos();
+    if(e.target.parentElement.classList.contains('todo-boxes')){
+        console.log(e.target);
+        e.target.classList.toggle('completed');
+    }
 }
 
 function showCompletedTodos(){
 
+    checkUI();
+
     // From each todo, display only the ones that have the word
-    // active in their classname
-    const todos = querySelectorAll('li');
+    // completed in their classname
+    const todos = document.querySelectorAll('li');
 
     todos.forEach(todo => {
         if(todo.classList.contains('completed'))
-            todo.style.display='none';
-        else
             todo.style.display='flex';
+        else
+            todo.style.display='none';
     });
 }
 
 function init(){
     newTodo.addEventListener('keypress', addTodoStorage);
     document.addEventListener('DOMContentLoaded', showTodos);
-    completedbtn.addEventListener('click', showCompleted);
+    completedbtn.addEventListener('click', showCompletedTodos);
+    allbtn.addEventListener('click', showTodos);
+    todoList.addEventListener('click', onClickTodo);
     
     checkUI();
 }

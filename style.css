@@ -90,10 +90,13 @@ i{
     height: 5rem;
     color: white;
     /* background-color: wheat; */
+    z-index: 10;
 }
 
 ul{
     list-style-type: square;
+    width: 100%;
+    padding: 0rem;
 }
 
 .options{
