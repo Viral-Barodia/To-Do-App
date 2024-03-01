@@ -22,6 +22,7 @@ function addTodoDOM(item){
 
     const newLi = document.createElement('li');
     newLi.classList.add('todo');
+    newLi.classList.add('active');
     const text = document.createTextNode(item);
     const circle = document.createElement('div');
     circle.classList.add('check-circle');
@@ -66,6 +67,12 @@ function addTodoStorage(e){
         let itemsFromStorage = getItemsFromStorage();
         
         item = itemInput.value;
+        if(item.trim()=='')
+        {
+            alert("Please enter a Todo");
+            return;
+        }
+
         itemsFromStorage.push(item);
         
         localStorage.setItem('todos', JSON.stringify(itemsFromStorage));
@@ -109,12 +116,14 @@ function checkUI(e){
 // Function to edit on click
 function onClickTodo(e){
 
+    console.log(e.target);
     if(e.target.parentElement.classList.contains('todo-boxes')){
-        console.log(e.target);
         e.target.classList.toggle('completed');
+        e.target.classList.toggle('active');
     }
 }
 
+// Function to show the completed todos
 function showCompletedTodos(){
 
     checkUI();
@@ -124,11 +133,30 @@ function showCompletedTodos(){
     const todos = document.querySelectorAll('li');
 
     todos.forEach(todo => {
-        if(todo.classList.contains('completed'))
+        if(todo.classList.contains('completed')){
+            todo.classList.toggle('active');
+            todo.classList.toggle('displayCompleted');
             todo.style.display='flex';
+        }
         else
             todo.style.display='none';
     });
+}
+
+// Function to show the active todos
+function showActiveTodos(){
+
+    const todos = document.querySelectorAll('li');
+
+    todos.forEach(todo => {
+        if(todo.classList.contains("active")){
+            // todo.classList.toggle('completed');
+            todo.style.display='flex';
+        }
+        else{
+            todo.style.display='none';
+        }
+    })
 }
 
 function init(){
@@ -136,6 +164,7 @@ function init(){
     document.addEventListener('DOMContentLoaded', showTodos);
     completedbtn.addEventListener('click', showCompletedTodos);
     allbtn.addEventListener('click', showTodos);
+    activebtn.addEventListener('click', showActiveTodos);
     todoList.addEventListener('click', onClickTodo);
     
     checkUI();

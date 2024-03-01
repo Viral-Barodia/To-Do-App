@@ -129,6 +129,11 @@ ul{
     text-decoration: line-through;
 }
 
+.displayCompleted{
+    color: white;
+    text-decoration: none;
+}
+
 .attribution{
     position: absolute;
     bottom: 2rem;
